@@ -1,5 +1,71 @@
-
 import 'package:flutter/material.dart';
+
+class Wisdom extends StatefulWidget {
+  @override
+  _WisdomState createState() => _WisdomState();
+}
+
+class _WisdomState extends State<Wisdom> {
+
+  int _index = 0;
+
+  List quotes = [
+    "井の中の蛙、大海を知らず",
+    "口は災いの元 ",
+    "能ある鷹は爪を隠す",
+    "猿も木から落ちる",
+    " 負けるが勝ち",
+    "自業自得",
+    "継続は力なり。"
+  ];
+
+  List pronounce = [
+    "I no naka no kawazu, taikai wo sirazu",
+    "Kuchi wa wazawai no moto ",
+    "Nô aru taka wa tsume wo kakusu",
+    "Saru mo ki kara ochiru",
+    "Makeru ga kachi",
+    "Jigou jitoku",
+    "keizoku wa chikara nari"
+  ];
+
+  List translations = [
+    " A frog in a well never knows the vast ocean",
+    "A mouth causes trouble",
+    "The skillful hawk hides its talons",
+    "Even a monkey can fall from a tree",
+    " To lose means to win",
+    "You get what you deserve",
+    "Continuing on is power"
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(quotes[_index]),
+            FlatButton.icon(
+                onPressed: _showQuote,
+                icon: Icon(Icons.wb_sunny),
+                label: Text("Inspire me!")
+            )
+          ],
+        ),
+      )
+
+    );
+  }
+
+  _showQuote() {
+    setState(() {
+      _index = (_index+1) % quotes.length;
+    });
+
+  }
+}
 
 
 class BizzCard extends StatelessWidget {
@@ -70,7 +136,6 @@ class BizzCard extends StatelessWidget {
     );
   }
 }
-
 
 class Home extends StatelessWidget {
   @override
@@ -221,4 +286,3 @@ class ButtonWithSnackBox extends StatelessWidget {
     );
   }
 }
-

@@ -5,7 +5,7 @@ import 'ui/home.dart';
 void main() {
 //  runApp(Home());
   runApp(new MaterialApp(
-    home: BizzCard(),
+    home: Wisdom(),
   ));
 }
 
