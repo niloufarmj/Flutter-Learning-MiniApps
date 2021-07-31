@@ -1,3 +1,8 @@
+
+import 'dart:math';
+import 'dart:ui';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Wisdom extends StatefulWidget {
@@ -8,6 +13,8 @@ class Wisdom extends StatefulWidget {
 class _WisdomState extends State<Wisdom> {
 
   int _index = 0;
+  String imageUrl = "https://picsum.photos/200";
+  int imageIndex = 2;
 
   List quotes = [
     "井の中の蛙、大海を知らず",
@@ -42,29 +49,109 @@ class _WisdomState extends State<Wisdom> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black12,
+
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        title: Text("Japanese Quotes App", style: TextStyle(color: Colors.blue.shade200, fontFamily: "blogger", fontWeight: FontWeight.bold),),
+        centerTitle: true,
+      ),
+
       body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(quotes[_index]),
-            FlatButton.icon(
-                onPressed: _showQuote,
-                icon: Icon(Icons.wb_sunny),
-                label: Text("Inspire me!")
-            )
-          ],
-        ),
+        alignment: Alignment.center,
+
+        child: Stack(
+          alignment: Alignment.topCenter,
+            children: <Widget>[
+              _getBox(),
+              _getPicture(),
+
+          ]
+        )
+
+
       )
 
     );
   }
 
   _showQuote() {
+    var random = new Random();
     setState(() {
+
       _index = (_index+1) % quotes.length;
+      imageCache.clear();
+
+        imageUrl = "https://picsum.photos/" + (random.nextInt(300)+100).toString();
+
     });
 
   }
+
+  Container _getBox() {
+    return Container(
+      width: 300,
+      height: 450,
+      //margin: ,
+      decoration: BoxDecoration(
+          color: Colors.grey.shade900,
+          borderRadius: BorderRadius.circular(20.0),
+      ),
+
+      child: Column(
+
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget> [
+          Text("\n\n\n" , style: TextStyle(fontSize: 45)),
+          Text((quotes[_index]), style: TextStyle(color: Colors.white, fontSize: 20.5, fontFamily: "blogger", fontWeight: FontWeight.bold), textAlign: TextAlign.center, ),
+          Text((pronounce[_index] + "\n\n"), style: TextStyle(color: Colors.blueGrey, fontSize: 14, fontStyle: FontStyle.italic), textAlign: TextAlign.center,),
+
+          Text(translations[_index], style: TextStyle(color: Colors.white70, fontSize: 13, fontStyle: FontStyle.italic), textAlign: TextAlign.center,),
+          Text("\n"),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+
+             ElevatedButton.icon(
+                  onPressed: _showQuote,
+                  icon: Icon(Icons.wb_sunny, color: Colors.white),
+                  label: Text("Inspire me!", style: TextStyle(color: Colors.white),),
+                  //color: Colors.deepPurpleAccent,
+                  style: ButtonStyle(
+                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                         RoundedRectangleBorder(
+                             borderRadius: BorderRadius.circular(18.0)
+                         )
+                     ),
+
+                 ),
+
+              )
+
+            ],
+          ),
+
+        ],
+      ),
+    );
+  }
+
+  Container _getPicture() {
+    return Container(
+      width: 200,
+      height: 200,
+      margin: EdgeInsets.all(20),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(100.0)),
+          image: DecorationImage(image: NetworkImage(imageUrl), fit: BoxFit.cover)
+      ),
+    );
+  }
+
+  nextButton() {}
+
+  likeButton() {}
 }
 
 
