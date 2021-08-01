@@ -64,7 +64,7 @@ class _BillSplitterState extends State<BillSplitter> {
                 children: <Widget>[
                   TextField(
                     keyboardType: TextInputType.numberWithOptions(decimal: true),
-                    style: TextStyle(color: Colors.white, fontSize: 25),
+                    style: TextStyle(color: Colors.white, fontSize: 20),
                     decoration: InputDecoration(
                       hintText: "Bill Amount",
                       hintStyle: TextStyle(color: Colors.blueGrey),
@@ -78,7 +78,61 @@ class _BillSplitterState extends State<BillSplitter> {
                         _billAmount = 0;
                       }
                     },
-                  )
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Row(
+                        children:<Widget> [
+                          Text("   "),
+                          Icon(Icons.wrap_text, color: Colors.deepPurpleAccent),
+                          Text("   Split", style: TextStyle(color: Colors.blueGrey, fontSize: 20),)
+                        ],
+                      ),
+
+                      Row(
+                        children: <Widget>[
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                if (_personCounter > 1)
+                                  _personCounter --;
+                              });
+                            },
+                            child: Container(
+                              width: 40,
+                              height: 40,
+                              margin: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.deepPurpleAccent.withOpacity(0.1)
+                              ),
+                                child: Center(child: Text("-", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),)),
+                            ),
+                          ),
+                          Text(_personCounter.toString(), style: TextStyle(color: Colors.white, fontSize: 22),),
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                  _personCounter ++;
+                              });
+                            },
+                            child: Container(
+                              width: 40,
+                              height: 40,
+                              margin: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.deepPurpleAccent.withOpacity(0.1)
+                              ),
+                              child: Center(child: Text("+", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),)),
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                  
                 ]
               )
             )
@@ -285,8 +339,6 @@ class BizzCard extends StatelessWidget {
       ),
     );
   }
-
-
 
   Container _getAvatar() {
     return Container(
