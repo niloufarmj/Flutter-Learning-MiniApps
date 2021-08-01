@@ -2,12 +2,91 @@
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:firstflutterapp/util/hexColor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Wisdom extends StatefulWidget {
   @override
   _WisdomState createState() => _WisdomState();
+}
+
+class BillSplitter extends StatefulWidget {
+  @override
+  _BillSplitterState createState() => _BillSplitterState();
+}
+
+class _BillSplitterState extends State<BillSplitter> {
+
+  int _tipPercentage = 0;
+  int _personCounter = 1;
+  double _billAmount = 0.0;
+  Color blueShade = new HexColor("#392457");
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        alignment: Alignment.center,
+        color: Colors.black,
+        child: ListView(
+
+          scrollDirection: Axis.vertical,
+          padding: EdgeInsets.all(20.5),
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.12),
+              width: 100,
+              height: 175,
+              decoration: BoxDecoration(
+                color: Colors.deepPurpleAccent.withOpacity(0.1),
+
+                borderRadius: BorderRadius.circular(12.0),
+              ),
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text("Total Per Person \n", style: TextStyle(color: Colors.white, fontSize: 20)),
+                    Text("\$" + (_billAmount/_personCounter).toString(), style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold))
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 30),
+              padding: EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: Colors.white30, width: 1.3)
+              ),
+              child: Column(
+                children: <Widget>[
+                  TextField(
+                    keyboardType: TextInputType.numberWithOptions(decimal: true),
+                    style: TextStyle(color: Colors.white, fontSize: 25),
+                    decoration: InputDecoration(
+                      hintText: "Bill Amount",
+                      hintStyle: TextStyle(color: Colors.blueGrey),
+                      prefixIcon: Icon(Icons.attach_money, color: Colors.deepPurpleAccent),
+
+                    ),
+                    onChanged: (String value) {
+                      try {
+                        _billAmount = double.parse(value);
+                      } catch(exception) {
+                        _billAmount = 0;
+                      }
+                    },
+                  )
+                ]
+              )
+            )
+          ],
+        )
+      ),
+    );
+  }
 }
 
 class _WisdomState extends State<Wisdom> {
@@ -153,7 +232,6 @@ class _WisdomState extends State<Wisdom> {
 
   likeButton() {}
 }
-
 
 class BizzCard extends StatelessWidget {
   @override
