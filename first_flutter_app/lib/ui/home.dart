@@ -173,6 +173,7 @@ class _BillSplitterState extends State<BillSplitter> {
                           },
                           activeColor: Colors.white,
                           inactiveColor: Colors.blueGrey,
+                          divisions: 10,
                           )
                     ],
                   )
