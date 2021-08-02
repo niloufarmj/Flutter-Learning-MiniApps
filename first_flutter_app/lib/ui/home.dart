@@ -331,6 +331,88 @@ class _WisdomState extends State<Wisdom> {
   likeButton() {}
 }
 
+class Quiz extends StatefulWidget {
+  @override
+  _QuizState createState() => _QuizState();
+}
+
+class _QuizState extends State<Quiz> {
+
+  List questions = [
+    "The earth is the fourth planet from the sun.",
+    "The planet Venus has no moons.",
+    "Jupiter is composed mostly of iron.",
+    "The sun is a star of average size.",
+    "A lunar eclipse occurs when the sun passes",
+  ];
+  int _overallPoint = 0;
+  int _index = 0;
+  BuildContext _context;
+
+  @override
+  Widget build(BuildContext context) {
+    _context = context;
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        title: Text("Simple Quiz App!", style: TextStyle(color: Colors.white, fontSize: 34, fontFamily: "affection", fontWeight: FontWeight.bold),),
+      ),
+      body: Container(
+        child: Column(
+          children: <Widget> [
+            Container(
+                alignment: Alignment.topRight,
+                child: Image.asset("assets/images/quiz.png", width: 380)
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 20),
+              width: 340,
+              height: 180,
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(15),
+                border: Border.all(color: Colors.white30, width: 1.3)
+              ),
+              child: _questionBox()
+
+            )
+
+          ],
+        ),
+      ),
+    );
+  }
+
+  Column _questionBox() {
+    if (_index >= questions.length)
+      //a box that shows score
+      return Column(
+
+      );
+
+    //normal question box
+    return Column(
+        children: <Widget> [
+          Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: Text(questions[_index], style: TextStyle(color: Colors.white70, fontSize: 20,), textAlign: TextAlign.center),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              CheckButton(),
+              FalseButton()
+            ],
+          )
+        ]
+    );
+  }
+
+  
+}
+
+
 class BizCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -543,6 +625,58 @@ class ButtonWithSnackBox extends StatelessWidget {
           child:
           //Icon(Icons.alternate_email, color: Colors.white,),
           Text("Follow Me!", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),)
+      ),
+    );
+  }
+}
+
+class CheckButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        final snackBar = SnackBar(
+          content: Text("Correct!", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),),
+          backgroundColor: Colors.greenAccent,
+
+        );
+
+        Scaffold.of(context).showSnackBar(snackBar);
+      },
+      child: Container(
+          width: 50,
+          height: 50,
+          decoration: BoxDecoration(
+            color: Colors.deepPurpleAccent,
+            borderRadius: BorderRadius.circular(25),
+          ),
+          child: Icon(Icons.check, color: Colors.white, size: 35,)
+      ),
+    );
+  }
+}
+
+class FalseButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        final snackBar = SnackBar(
+          content: Text("Incorrect!", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),),
+          backgroundColor: Colors.redAccent,
+
+        );
+
+        Scaffold.of(context).showSnackBar(snackBar);
+      },
+      child: Container(
+          width: 50,
+          height: 50,
+          decoration: BoxDecoration(
+            color: Colors.deepPurpleAccent,
+            borderRadius: BorderRadius.circular(25),
+          ),
+          child: Icon(Icons.clear, color: Colors.white, size: 35,)
       ),
     );
   }

@@ -49,4 +49,10 @@ flutter:
     - family: blogger
       fonts:
         - asset: assets/fonts/blogger-sans.regular.ttf
+    - family: affection
+      fonts:
+        - asset: assets/fonts/Affectionately.ttf
+
+  assets:
+    - assets/images/quiz.png
 
