@@ -1,4 +1,3 @@
-
 import 'dart:math';
 import 'dart:ui';
 
@@ -48,13 +47,13 @@ class _BillSplitterState extends State<BillSplitter> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text("Total Per Person \n", style: TextStyle(color: Colors.white, fontSize: 20)),
-                    Text("\$" + (_billAmount/_personCounter).toString(), style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold))
+                    Text("\$" + ((_billAmount + (_tipPercentage*_billAmount)/100)/_personCounter).toString(), style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold))
                   ],
                 ),
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 30),
+              margin: EdgeInsets.only(top: 40),
               padding: EdgeInsets.all(12),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
@@ -62,6 +61,7 @@ class _BillSplitterState extends State<BillSplitter> {
               ),
               child: Column(
                 children: <Widget>[
+                  //bill amount
                   TextField(
                     keyboardType: TextInputType.numberWithOptions(decimal: true),
                     style: TextStyle(color: Colors.white, fontSize: 20),
@@ -79,6 +79,8 @@ class _BillSplitterState extends State<BillSplitter> {
                       }
                     },
                   ),
+
+                  //split
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -127,12 +129,53 @@ class _BillSplitterState extends State<BillSplitter> {
                               ),
                               child: Center(child: Text("+", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),)),
                             ),
-                          )
+                          ),
+
                         ],
-                      )
+                      ),
+
                     ],
                   ),
-                  
+
+                  //tip
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("   "),
+                          Icon(Icons.wallet_giftcard_outlined, color: Colors.deepPurpleAccent,),
+                          Text("   Tip", style: TextStyle(color: Colors.blueGrey, fontSize: 20),)
+                        ],
+                      ),
+
+                      Padding(
+                        padding: const EdgeInsets.all(17.0),
+                        child: Text(((_tipPercentage*_billAmount)/100).toString(), style: TextStyle(color: Colors.white, fontSize: 22),),
+                      )
+
+                    ],
+                  ),
+
+                  //tip percentage
+                  Column(
+                    children: <Widget>[
+                      Text("$_tipPercentage %", style: TextStyle(color: Colors.deepPurpleAccent, fontSize: 24, fontWeight: FontWeight.bold)),
+                      Slider(
+                          min: 0,
+                          max: 100,
+                          value: _tipPercentage.toDouble(),
+                          onChanged: (double value) {
+                            setState(() {
+                              _tipPercentage = value.round();
+                            });
+                          },
+                          activeColor: Colors.white,
+                          inactiveColor: Colors.blueGrey,
+                          )
+                    ],
+                  )
                 ]
               )
             )
@@ -287,7 +330,7 @@ class _WisdomState extends State<Wisdom> {
   likeButton() {}
 }
 
-class BizzCard extends StatelessWidget {
+class BizCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
