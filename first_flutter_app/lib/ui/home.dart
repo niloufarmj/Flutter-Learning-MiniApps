@@ -345,14 +345,25 @@ class _QuizState extends State<Quiz> {
     "The sun is a star of average size.",
     "A lunar eclipse occurs when the sun passes",
   ];
+
+  List alreadyTrue = [
+    false, false, false, false, false
+  ];
+
+  List answers = [
+    false, true, false, true, true
+  ];
+
+
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   int _overallPoint = 0;
   int _index = 0;
-  BuildContext _context;
 
   @override
   Widget build(BuildContext context) {
-    _context = context;
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -376,8 +387,8 @@ class _QuizState extends State<Quiz> {
               ),
               child: _questionBox()
 
-            )
-
+            ),
+            _nextButton()
           ],
         ),
       ),
@@ -388,10 +399,20 @@ class _QuizState extends State<Quiz> {
     if (_index >= questions.length)
       //a box that shows score
       return Column(
-
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Text("final score: ", style: TextStyle(color: Colors.blueGrey, fontSize: 20)),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Text(_overallPoint.toString(), style: TextStyle(color: Colors.deepPurpleAccent, fontSize: 50, fontWeight: FontWeight.bold),),
+          )
+        ],
       );
 
     //normal question box
+
     return Column(
         children: <Widget> [
           Padding(
@@ -401,17 +422,131 @@ class _QuizState extends State<Quiz> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              CheckButton(),
-              FalseButton()
+              GestureDetector(
+                onTap: () {
+                  var snackBar;
+                  if (alreadyTrue[_index]) {
+                    snackBar = SnackBar(
+                      content: Text("True Answer Already Chosen!", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),),
+                      backgroundColor: Colors.yellowAccent.shade200,
+                    );
+                  }
+
+                  else if (answers[_index]) {
+                    snackBar = SnackBar(
+                      content: Text("Correct!", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),),
+                      backgroundColor: Colors.greenAccent,
+
+                    );
+                    _overallPoint++;
+                    alreadyTrue[_index] = true;
+                  }
+
+                  else {
+                    snackBar = SnackBar(
+                      content: Text("Incorrect!", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),),
+                      backgroundColor: Colors.redAccent,
+
+                    );
+                  }
+                  _scaffoldKey.currentState.showSnackBar(snackBar);
+                },
+                child: Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: Colors.deepPurpleAccent,
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    child: Icon(Icons.check, color: Colors.white, size: 35,)
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  var snackBar;
+                  if (alreadyTrue[_index]) {
+                    snackBar = SnackBar(
+                      content: Text("True Answer Already Chosen!", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),),
+                      backgroundColor: Colors.yellowAccent.shade200,
+                    );
+                  }
+
+                  else if (!answers[_index]) {
+                    snackBar = SnackBar(
+                      content: Text("Correct!", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),),
+                      backgroundColor: Colors.greenAccent,
+
+                    );
+                    _overallPoint++;
+                    alreadyTrue[_index] = true;
+                  }
+
+                  else {
+                    snackBar = SnackBar(
+                      content: Text("Incorrect!", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),),
+                      backgroundColor: Colors.redAccent,
+
+                    );
+                  }
+                  _scaffoldKey.currentState.showSnackBar(snackBar);
+                },
+                child: Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: Colors.deepPurpleAccent,
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    child: Icon(Icons.clear, color: Colors.white, size: 35,)
+                ),
+              )
             ],
           )
         ]
     );
   }
 
+  Container _nextButton() {
+    if (_index >= questions.length)
+      //a box that shows score
+      if (_overallPoint >= 3)
+        return Container(
+          margin: EdgeInsets.only(top: 25),
+          child:
+            Text("Good Job!", style: TextStyle(color: Colors.white, fontSize: 22, fontFamily: "affection"))
+        );
+      else
+        return Container(
+            margin: EdgeInsets.only(top: 25),
+            child:
+            Text("Not so well!", style: TextStyle(color: Colors.white, fontSize: 22, fontFamily: "affection"))
+        );
+
+    return Container(
+      child:
+        InkWell(
+          child: Container(
+            width: 200,
+            height: 50,
+            margin: EdgeInsets.only(top: 20),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.white, width: 2),
+              borderRadius: BorderRadius.circular(7.5)
+            ),
+            child:
+              Center(child: Text("Next ->", style: TextStyle(color: Colors.white, fontSize: 17)))
+          ),
+          onTap: () {
+            setState(() {
+              _index++;
+            });
+          },
+        )
+    );
+  }
+
   
 }
-
 
 class BizCard extends StatelessWidget {
   @override
@@ -625,58 +760,6 @@ class ButtonWithSnackBox extends StatelessWidget {
           child:
           //Icon(Icons.alternate_email, color: Colors.white,),
           Text("Follow Me!", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),)
-      ),
-    );
-  }
-}
-
-class CheckButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        final snackBar = SnackBar(
-          content: Text("Correct!", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),),
-          backgroundColor: Colors.greenAccent,
-
-        );
-
-        Scaffold.of(context).showSnackBar(snackBar);
-      },
-      child: Container(
-          width: 50,
-          height: 50,
-          decoration: BoxDecoration(
-            color: Colors.deepPurpleAccent,
-            borderRadius: BorderRadius.circular(25),
-          ),
-          child: Icon(Icons.check, color: Colors.white, size: 35,)
-      ),
-    );
-  }
-}
-
-class FalseButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        final snackBar = SnackBar(
-          content: Text("Incorrect!", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),),
-          backgroundColor: Colors.redAccent,
-
-        );
-
-        Scaffold.of(context).showSnackBar(snackBar);
-      },
-      child: Container(
-          width: 50,
-          height: 50,
-          decoration: BoxDecoration(
-            color: Colors.deepPurpleAccent,
-            borderRadius: BorderRadius.circular(25),
-          ),
-          child: Icon(Icons.clear, color: Colors.white, size: 35,)
       ),
     );
   }
