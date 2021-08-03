@@ -388,7 +388,7 @@ class _QuizState extends State<Quiz> {
               child: _questionBox()
 
             ),
-            _nextButton()
+            _nextPrevButton()
           ],
         ),
       ),
@@ -422,91 +422,99 @@ class _QuizState extends State<Quiz> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              GestureDetector(
-                onTap: () {
-                  var snackBar;
-                  if (alreadyTrue[_index]) {
-                    snackBar = SnackBar(
-                      content: Text("True Answer Already Chosen!", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),),
-                      backgroundColor: Colors.yellowAccent.shade200,
-                    );
-                  }
-
-                  else if (answers[_index]) {
-                    snackBar = SnackBar(
-                      content: Text("Correct!", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),),
-                      backgroundColor: Colors.greenAccent,
-
-                    );
-                    _overallPoint++;
-                    alreadyTrue[_index] = true;
-                  }
-
-                  else {
-                    snackBar = SnackBar(
-                      content: Text("Incorrect!", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),),
-                      backgroundColor: Colors.redAccent,
-
-                    );
-                  }
-                  _scaffoldKey.currentState.showSnackBar(snackBar);
-                },
-                child: Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: Colors.deepPurpleAccent,
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                    child: Icon(Icons.check, color: Colors.white, size: 35,)
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  var snackBar;
-                  if (alreadyTrue[_index]) {
-                    snackBar = SnackBar(
-                      content: Text("True Answer Already Chosen!", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),),
-                      backgroundColor: Colors.yellowAccent.shade200,
-                    );
-                  }
-
-                  else if (!answers[_index]) {
-                    snackBar = SnackBar(
-                      content: Text("Correct!", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),),
-                      backgroundColor: Colors.greenAccent,
-
-                    );
-                    _overallPoint++;
-                    alreadyTrue[_index] = true;
-                  }
-
-                  else {
-                    snackBar = SnackBar(
-                      content: Text("Incorrect!", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),),
-                      backgroundColor: Colors.redAccent,
-
-                    );
-                  }
-                  _scaffoldKey.currentState.showSnackBar(snackBar);
-                },
-                child: Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: Colors.deepPurpleAccent,
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                    child: Icon(Icons.clear, color: Colors.white, size: 35,)
-                ),
-              )
+              _checkButton(),
+              _falseButton()
             ],
           )
         ]
     );
   }
 
-  Container _nextButton() {
+  GestureDetector _checkButton() {
+    return GestureDetector(
+      onTap: () {
+        var snackBar;
+        if (alreadyTrue[_index]) {
+          snackBar = SnackBar(
+            content: Text("True Answer Already Chosen!", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),),
+            backgroundColor: Colors.yellowAccent.shade200,
+          );
+        }
+
+        else if (answers[_index]) {
+          snackBar = SnackBar(
+            content: Text("Correct!", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),),
+            backgroundColor: Colors.greenAccent,
+
+          );
+          _overallPoint++;
+          alreadyTrue[_index] = true;
+        }
+
+        else {
+          snackBar = SnackBar(
+            content: Text("Incorrect!", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),),
+            backgroundColor: Colors.redAccent,
+
+          );
+        }
+        _scaffoldKey.currentState.showSnackBar(snackBar);
+      },
+      child: Container(
+          width: 50,
+          height: 50,
+          decoration: BoxDecoration(
+            color: Colors.deepPurpleAccent,
+            borderRadius: BorderRadius.circular(25),
+          ),
+          child: Icon(Icons.check, color: Colors.white, size: 35,)
+      ),
+    );
+  }
+
+  GestureDetector _falseButton() {
+    return GestureDetector(
+      onTap: () {
+        var snackBar;
+        if (alreadyTrue[_index]) {
+          snackBar = SnackBar(
+            content: Text("True Answer Already Chosen!", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),),
+            backgroundColor: Colors.yellowAccent.shade200,
+          );
+        }
+
+        else if (!answers[_index]) {
+          snackBar = SnackBar(
+            content: Text("Correct!", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),),
+            backgroundColor: Colors.greenAccent,
+
+          );
+          _overallPoint++;
+          alreadyTrue[_index] = true;
+        }
+
+        else {
+          snackBar = SnackBar(
+            content: Text("Incorrect!", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),),
+            backgroundColor: Colors.redAccent,
+
+          );
+        }
+        _scaffoldKey.currentState.showSnackBar(snackBar);
+      },
+      child: Container(
+          width: 50,
+          height: 50,
+          decoration: BoxDecoration(
+            color: Colors.deepPurpleAccent,
+            borderRadius: BorderRadius.circular(25),
+          ),
+          child: Icon(Icons.clear, color: Colors.white, size: 35,)
+      ),
+    );
+  }
+
+  Container _nextPrevButton() {
     if (_index >= questions.length)
       //a box that shows score
       if (_overallPoint >= 3)
@@ -519,29 +527,55 @@ class _QuizState extends State<Quiz> {
         return Container(
             margin: EdgeInsets.only(top: 25),
             child:
-            Text("Not so well!", style: TextStyle(color: Colors.white, fontSize: 22, fontFamily: "affection"))
+            Text("Not so good!", style: TextStyle(color: Colors.white, fontSize: 22, fontFamily: "affection"))
         );
 
     return Container(
-      child:
-        InkWell(
-          child: Container(
-            width: 200,
-            height: 50,
-            margin: EdgeInsets.only(top: 20),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.white, width: 2),
-              borderRadius: BorderRadius.circular(7.5)
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          //prev
+          InkWell(
+            child: Container(
+                width: 150,
+                height: 50,
+                margin: EdgeInsets.only(top: 20),
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.white, width: 2),
+                    borderRadius: BorderRadius.circular(7.5)
+                ),
+                child:
+                Center(child: Text("<- previous", style: TextStyle(color: Colors.white, fontSize: 17)))
             ),
-            child:
-              Center(child: Text("Next ->", style: TextStyle(color: Colors.white, fontSize: 17)))
+            onTap: () {
+              setState(() {
+                _index--;
+              });
+            },
           ),
-          onTap: () {
-            setState(() {
-              _index++;
-            });
-          },
-        )
+
+          //next
+          InkWell(
+            child: Container(
+                width: 150,
+                height: 50,
+                margin: EdgeInsets.only(top: 20),
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.white, width: 2),
+                    borderRadius: BorderRadius.circular(7.5)
+                ),
+                child:
+                Center(child: Text("Next ->", style: TextStyle(color: Colors.white, fontSize: 17)))
+            ),
+            onTap: () {
+              setState(() {
+                _index++;
+              });
+            },
+          )
+        ],
+      )
+
     );
   }
 
