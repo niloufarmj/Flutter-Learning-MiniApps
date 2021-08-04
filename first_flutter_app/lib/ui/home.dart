@@ -5,6 +5,7 @@ import 'package:firstflutterapp/util/hexColor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+
 class Wisdom extends StatefulWidget {
   @override
   _WisdomState createState() => _WisdomState();
@@ -536,6 +537,7 @@ class _QuizState extends State<Quiz> {
         children: [
           //prev
           InkWell(
+
             child: Container(
                 width: 150,
                 height: 50,
@@ -549,6 +551,7 @@ class _QuizState extends State<Quiz> {
             ),
             onTap: () {
               setState(() {
+                if (_index > 0)
                 _index--;
               });
             },
@@ -795,6 +798,52 @@ class ButtonWithSnackBox extends StatelessWidget {
           //Icon(Icons.alternate_email, color: Colors.white,),
           Text("Follow Me!", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),)
       ),
+    );
+  }
+}
+
+class MovieListView extends StatelessWidget {
+
+  List movies = [
+    "Taxi Driver",
+    "Fight Club",
+    "Inception",
+    "The Shining",
+    "Mr. Nobody",
+    "Prestige",
+    "Malena",
+    "Parasite",
+    "Requiem For a Dream"
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        title: Text(
+            "Movies",
+            style: TextStyle(fontSize: 32,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+              shadows: [
+                Shadow(
+                  color: Colors.white,
+                  offset: Offset.zero,
+                  blurRadius: 6
+                )
+              ]
+        )),
+        backgroundColor: Colors.black,
+      ),
+      body: ListView.builder(itemCount: movies.length,itemBuilder: (BuildContext context, int index) {
+        return Card(
+          color: Colors.white10,
+          child: ListTile(
+            title: Text(movies[index], style: TextStyle(color: Colors.white),),
+          ),
+        );
+      })
     );
   }
 }
