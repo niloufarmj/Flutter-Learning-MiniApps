@@ -203,7 +203,7 @@ class MovieListViewDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black54,
+      backgroundColor: Colors.black,
       appBar: AppBar(
         title: Text(
             "Movies",
@@ -222,7 +222,7 @@ class MovieListViewDetails extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
-
+          MovieDetailsThumbnail(thumbnail: movie.images[0])
         ],
       )
     );
@@ -243,14 +243,32 @@ class MovieDetailsThumbnail extends StatelessWidget {
         Stack(
           alignment: Alignment.center,
           children: [
-            Container(
-              width: 114,
-              height: 190,
-              decoration: BoxDecoration(
-                
+             Container(
+                width: MediaQuery.of(context).size.width,
+                height: 240,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(thumbnail)
+                  )
+                ),
               ),
-            )
+            Icon(Icons.play_circle_outline, size: 100, color: Colors.black54,)
           ],
+
+        ),
+        Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.transparent,
+                Colors.black26,
+                Colors.black,
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter
+            )
+          ),
+          height: 170,
         )
       ],
     );
