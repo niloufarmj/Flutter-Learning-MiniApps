@@ -227,7 +227,8 @@ class MovieListViewDetails extends StatelessWidget {
           MovieDetailsHeaderWithPoster(movie: movie),
           HorizontalLine(),
           MovieDetailsCast(movie: movie,),
-          HorizontalLine()
+          HorizontalLine(),
+          MovieDetailsExtraPosters(images: movie.images)
         ],
       )
     );
@@ -429,6 +430,49 @@ class HorizontalLine extends StatelessWidget {
       child: Container(
         height: 0.4,
         color: Colors.blueGrey,
+      ),
+    );
+  }
+}
+
+class MovieDetailsExtraPosters extends StatelessWidget {
+
+  final List<String> images;
+
+  const MovieDetailsExtraPosters({Key key, this.images}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 22, right: 22, top: 8, bottom: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget> [
+          Text("more movie posters".toUpperCase(), style: TextStyle(color: Colors.deepPurpleAccent, fontSize: 15, fontFamily: "blogger"),),
+          Container(
+            height: 145,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) => ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width / 2,
+                      height: 135,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage(images[index]), fit: BoxFit.cover
+                        )
+                      ),
+                    ),
+                  ),
+                  separatorBuilder: (context, index) => SizedBox(width: 8,),
+                  itemCount: images.length
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
