@@ -223,7 +223,10 @@ class MovieListViewDetails extends StatelessWidget {
       body: ListView(
         children: <Widget>[
           MovieDetailsThumbnail(thumbnail: movie.images[0]),
-          MovieDetailsHeaderWithPoster(movie: movie)
+          SizedBox(height: 10,),
+          MovieDetailsHeaderWithPoster(movie: movie),
+          SizedBox(height: 20,),
+          MovieDetailsCast(movie: movie,)
         ],
       )
     );
@@ -314,8 +317,8 @@ class MoviePoster extends StatelessWidget {
       child: ClipRRect(
         borderRadius: borderRadius,
         child: Container(
-          width: MediaQuery.of(context).size.width / 4,
-          height: 160,
+          width: MediaQuery.of(context).size.width * 0.26,
+          height: 180,
           decoration: BoxDecoration(
             image: DecorationImage(image: NetworkImage(poster), fit: BoxFit.cover)
           ),
@@ -343,7 +346,7 @@ class MovieDetailHeader extends StatelessWidget {
         SizedBox(height: 13,),
         Text(movie.title, style: TextStyle(
             color: Colors.white,
-            fontSize: 28,
+            fontSize: 27,
             fontWeight: FontWeight.bold,
             fontFamily: "blogger",
             shadows: [Shadow(
@@ -356,7 +359,7 @@ class MovieDetailHeader extends StatelessWidget {
         Text.rich(TextSpan(
           style: TextStyle(
             color: Colors.white70,
-            fontSize: 12
+            fontSize: 14
           ),
           children: <TextSpan> [
             TextSpan(text: movie.plot),
@@ -367,6 +370,57 @@ class MovieDetailHeader extends StatelessWidget {
     );
   }
 }
+
+class MovieDetailsCast extends StatelessWidget {
+
+  final Movie movie;
+
+  const MovieDetailsCast({Key key, this.movie}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          children: <Widget>[
+            MovieField(field: "Casts", value: movie.actors),
+            MovieField(field: "Director", value: movie.director),
+            MovieField(field: "Weiter", value: movie.writer),
+            MovieField(field: "Language", value: movie.awards),
+            MovieField(field: "Country", value: movie.country),
+            MovieField(field: "Release Date", value: movie.released,),
+            MovieField(field: "Rated", value: movie.rated),
+            MovieField(field: "Imdb Rate", value: movie.imdbRating + "/10 (" + movie.imdbVotes + " votes)"),
+            MovieField(field: "Awards", value: movie.awards),
+
+          ],
+        )
+    );
+  }
+}
+
+class MovieField extends StatelessWidget {
+
+  final String field, value;
+
+  const MovieField({Key key, this.field, this.value}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(6.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("$field: ".toUpperCase(), style: TextStyle(color: Colors.deepPurpleAccent, fontSize: 14, fontWeight: FontWeight.w300, fontFamily: "blogger")),
+          Expanded(child: Text(value, style: TextStyle(color: Colors.white, fontSize: 13)))
+        ],
+      ),
+    );
+  }
+}
+
+
 
 
 
