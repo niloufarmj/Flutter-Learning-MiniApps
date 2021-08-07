@@ -222,7 +222,8 @@ class MovieListViewDetails extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
-          MovieDetailsThumbnail(thumbnail: movie.images[0])
+          MovieDetailsThumbnail(thumbnail: movie.images[0]),
+          MovieDetailsHeaderWithPoster(movie: movie)
         ],
       )
     );
@@ -274,3 +275,98 @@ class MovieDetailsThumbnail extends StatelessWidget {
     );
   }
 }
+
+class MovieDetailsHeaderWithPoster extends StatelessWidget {
+
+  final Movie movie;
+
+  const MovieDetailsHeaderWithPoster({Key key, this.movie}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Row(
+        children: [
+          MoviePoster(poster: movie.poster),
+          SizedBox(width: 16,),
+          Expanded(child: MovieDetailHeader(movie: movie))
+        ],
+      ),
+    );
+  }
+}
+
+class MoviePoster extends StatelessWidget {
+
+  final String poster;
+
+  const MoviePoster({Key key, this.poster}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+
+    var borderRadius = BorderRadius.all(Radius.circular(10));
+
+    return Card(
+      color: Colors.black,
+      margin: EdgeInsets.only(top: 15),
+      child: ClipRRect(
+        borderRadius: borderRadius,
+        child: Container(
+          width: MediaQuery.of(context).size.width / 4,
+          height: 160,
+          decoration: BoxDecoration(
+            image: DecorationImage(image: NetworkImage(poster), fit: BoxFit.cover)
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class MovieDetailHeader extends StatelessWidget {
+
+  final Movie movie;
+
+  const MovieDetailHeader({Key key, this.movie}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+
+    TextStyle whiteStyle = TextStyle(color: Colors.white, fontSize: 14);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("${movie.year}     ${movie.genre}".toUpperCase(), style: TextStyle(color: Colors.deepPurpleAccent, fontSize: 14),),
+        SizedBox(height: 13,),
+        Text(movie.title, style: TextStyle(
+            color: Colors.white,
+            fontSize: 28,
+            fontWeight: FontWeight.bold,
+            fontFamily: "blogger",
+            shadows: [Shadow(
+              color: Colors.deepPurpleAccent,
+              offset: Offset.zero,
+              blurRadius: 7
+            )
+          ]),),
+        SizedBox(height: 10,),
+        Text.rich(TextSpan(
+          style: TextStyle(
+            color: Colors.white70,
+            fontSize: 12
+          ),
+          children: <TextSpan> [
+            TextSpan(text: movie.plot),
+            TextSpan(text: " More...", style: TextStyle(color: Colors.blueGrey))
+          ]
+        ))
+      ],
+    );
+  }
+}
+
+
+

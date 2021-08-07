@@ -7,7 +7,7 @@ class Movie {
         "English, Spanish",
         "USA, UK",
         "Won 3 Oscars. Another 80 wins & 121 nominations.",
-        "https://i.pinimg.com/originals/f5/26/d7/f526d76594583d947a42aba8c47d8d45.jpg",
+        "https://www.clandestinecritic.co.uk/wp-content/uploads/2010/04/Avatar-movie-poster.jpg",
         "83",
         "7.9",
         "890,617",
