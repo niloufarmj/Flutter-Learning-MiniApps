@@ -368,9 +368,9 @@ class _QuizState extends State<Quiz> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: Colors.black,
+      //backgroundColor: Colors.white70,
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        //backgroundColor: Colors.black,
         title: Text("Simple Quiz App!", style: TextStyle(color: Colors.white, fontSize: 34, fontFamily: "affection", fontWeight: FontWeight.bold),),
       ),
       body: Container(
@@ -421,7 +421,7 @@ class _QuizState extends State<Quiz> {
         children: <Widget> [
           Padding(
             padding: const EdgeInsets.all(30.0),
-            child: Text(questions[_index], style: TextStyle(color: Colors.white70, fontSize: 20,), textAlign: TextAlign.center),
+            child: Text(questions[_index], textAlign: TextAlign.center),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -550,7 +550,7 @@ class _QuizState extends State<Quiz> {
                     borderRadius: BorderRadius.circular(7.5)
                 ),
                 child:
-                Center(child: Text("<- previous", style: TextStyle(color: Colors.white, fontSize: 17)))
+                Center(child: Text("<- previous",))
             ),
             onTap: () {
               setState(() {
@@ -571,7 +571,7 @@ class _QuizState extends State<Quiz> {
                     borderRadius: BorderRadius.circular(7.5)
                 ),
                 child:
-                Center(child: Text("Next ->", style: TextStyle(color: Colors.white, fontSize: 17)))
+                Center(child: Text("Next ->", ))
             ),
             onTap: () {
               setState(() {
