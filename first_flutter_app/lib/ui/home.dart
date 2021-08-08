@@ -1,9 +1,12 @@
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:firstflutterapp/model/movie.dart';
 import 'package:firstflutterapp/util/hexColor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'movie_ui/movie_ui.dart';
 
 
 class Wisdom extends StatefulWidget {
@@ -583,6 +586,173 @@ class _QuizState extends State<Quiz> {
   }
 
   
+}
+
+class MovieListView extends StatelessWidget {
+
+  final List<Movie> movieList = Movie.getMovies();
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.black54,
+        appBar: AppBar(
+          title: Text(
+              "Movies",
+              style: TextStyle(fontSize: 32,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  shadows: [
+                    Shadow(
+                        color: Colors.white,
+                        offset: Offset.zero,
+                        blurRadius: 6
+                    )
+                  ]
+              )),
+          backgroundColor: Colors.black,
+        ),
+        body: ListView.builder(itemCount: movieList.length,itemBuilder: (BuildContext context, int index) {
+          return Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Stack(
+              children: <Widget> [
+                movieCard(movieList[index], context)
+                ,
+
+                Positioned(
+                    top: 15,
+                    child: movieImage(movieList[index].poster)
+                ),
+
+              ],
+            ),
+          );
+        })
+    );
+  }
+
+  Widget movieCard(Movie movie, BuildContext context) {
+    return InkWell(
+      child: Container(
+        margin: EdgeInsets.only(left: 70),
+        width: MediaQuery.of(context).size.width,
+        height: 150,
+        child: Card(
+            elevation: 4.5,
+            color: Colors.deepPurpleAccent.withOpacity(0.1),
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  top: 8,
+                  bottom: 8,
+                  left: 54,
+                  right: 12
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(movie.title, style: TextStyle(color: Colors.white, fontFamily: "blogger", fontWeight: FontWeight.bold, fontSize: 17),),
+                      Text("Rating: ${movie.imdbRating}/10 ", style: TextStyle(color: Colors.white70, fontFamily: "blogger", ),)
+
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("${movie.year}", style: TextStyle(color: Colors.white70, fontFamily: "blogger"),),
+                      Text("${movie.runtime}", style: TextStyle(color: Colors.white70, fontFamily: "blogger"),),
+                      Text("${movie.rated}", style: TextStyle(color: Colors.white70, fontFamily: "blogger"),)
+                    ],
+                  )
+                ],
+              ),
+            )
+        ),
+      ),
+      onTap: () => {
+        Navigator.push(context,
+            MaterialPageRoute(builder:
+                (context) =>
+                MovieListViewDetails(
+                  movieName: movie.title,
+                  movie: movie,
+                )
+            ))
+      },
+    );
+  }
+
+  Widget movieImage(String imageUrl) {
+    return Container(
+      width: 90,
+      height: 120,
+      decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black38,
+              blurRadius: 4.0,
+              spreadRadius: 0.0,
+              offset: Offset(
+                0.0,
+                1.0,
+              ),
+            ),
+          ],
+          image: DecorationImage(
+              image: NetworkImage(imageUrl ?? 'https://www.reelviews.net/resources/img/default_poster.jpg'),
+              fit: BoxFit.fill
+          )
+      ),
+    );
+  }
+}
+
+class MovieListViewDetails extends StatelessWidget {
+
+  final String movieName;
+  final Movie movie;
+
+  const MovieListViewDetails({Key key, this.movieName, this.movie}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.black,
+        appBar: AppBar(
+          title: Text(
+              "Movies",
+              style: TextStyle(fontSize: 32,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  shadows: [
+                    Shadow(
+                        color: Colors.white,
+                        offset: Offset.zero,
+                        blurRadius: 6
+                    )
+                  ]
+              )),
+          backgroundColor: Colors.black,
+        ),
+        body: ListView(
+          children: <Widget>[
+            MovieDetailsThumbnail(thumbnail: movie.images[0]),
+            SizedBox(height: 10,),
+            MovieDetailsHeaderWithPoster(movie: movie),
+            HorizontalLine(),
+            MovieDetailsCast(movie: movie,),
+            HorizontalLine(),
+            MovieDetailsExtraPosters(images: movie.images)
+          ],
+        )
+    );
+  }
 }
 
 class BizCard extends StatelessWidget {
