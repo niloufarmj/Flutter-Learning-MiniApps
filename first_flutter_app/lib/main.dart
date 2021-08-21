@@ -1,4 +1,7 @@
 
+import 'package:firstflutterapp/parsing_json/json_parsing.dart';
+import 'package:firstflutterapp/parsing_json/json_parsing_map.dart';
+import 'package:firstflutterapp/weather_forecast/weather_forcast.dart';
 import 'package:flutter/material.dart';
 
 import 'ui/home.dart';
@@ -16,26 +19,26 @@ ThemeData _buildAppTheme() {
 void main() {
 //  runApp(Home());
   runApp(new MaterialApp(
-    theme: ThemeData(
-      brightness: Brightness.light,
-      primaryColor: Colors.deepPurpleAccent,
-      textTheme: TextTheme(
-        headline: TextStyle(
-          color: Colors.white,
-          fontFamily: "affection",
-          fontSize: 34,
-          fontWeight: FontWeight.bold
-        ),
-        body1: TextStyle(
-          color: Colors.black54, fontSize: 20,
-        ),
-        button: TextStyle(
-          color: Colors.black,
-        ),
-      )
-    ),
+//    theme: ThemeData(
+//      brightness: Brightness.light,
+//      primaryColor: Colors.deepPurpleAccent,
+//      textTheme: TextTheme(
+//        headline: TextStyle(
+//          color: Colors.white,
+//          fontFamily: "affection",
+//          fontSize: 34,
+//          fontWeight: FontWeight.bold
+//        ),
+//        body1: TextStyle(
+//          color: Colors.black54, fontSize: 20,
+//        ),
+//        button: TextStyle(
+//          color: Colors.black,
+//        ),
+//      )
+//    ),
 //    theme: _appTheme,
-    home: Quiz(),
+    home: WeatherForecast(),
   ));
 }
 
