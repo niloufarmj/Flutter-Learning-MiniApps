@@ -1,3 +1,38 @@
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/niloufarmj/flutter-prectice">
+    <img src="readme-images/logo.png" alt="Logo" width="80" height="80">
+  </a>
+
+  <h3 align="center">My Flutter Practice Projects</h3>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Contents of This Project</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#first-app">First App: Biz Card</a></li>
+    <li><a href="#second-app">Second App: Japanese Quotes</a></li>
+    <li><a href="#third-app">Third App: Quiz/a></li>
+    <li><a href="#fourth-app">Fourth App: Movies</a></li>
+    <li><a href="#fifth-app">Fifth App: Weathers</a></li>
+  </ol>
+</details>
+
 # firstflutterapp
 
 This file contains my first flutter applications which helped me learn flutter.
