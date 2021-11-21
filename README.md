@@ -20,24 +20,25 @@
     </li>
     <li>
       <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
     </li>
-    <li><a href="#first-app">First App: Biz Card</a></li>
-    <li><a href="#second-app">Second App: Japanese Quotes</a></li>
-    <li><a href="#third-app">Third App: Quiz/a></li>
-    <li><a href="#fourth-app">Fourth App: Movies</a></li>
-    <li><a href="#fifth-app">Fifth App: Weathers</a></li>
+    <li><a href="#project-demo">Demo</a></li>
   </ol>
 </details>
 
-# firstflutterapp
+<!-- ABOUT THE PROJECT -->
+## About The Project
+<div>
+  <img src="readme-images/about.png" alt="about">
+  <p> 
+    This is the first project i made with flutter. the five apps in this projects helped me learn flutter.
+    A Udemy Course by Paulo was my guide.
+  </p>
+</div>
+  
+### Built With
+* [Dart](https://dart.dev/)
+* [Flutter](https://flutter.dev/)
 
-This file contains my first flutter applications which helped me learn flutter.
-You can find the main projet sources in lib folder. 
-This file consists of 5 differnt projects which you can run by changing home property of materialApp in runApp of main.dart.
 
 ## Getting Started
 
@@ -49,7 +50,20 @@ A few resources to get you started if this is your first Flutter project:
 
 - [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- [install flutter guide](https://www.tutorialspoint.com/flutter/flutter_installation.htm#:~:text=Open%20Android%20Studio.,to%20install%20the%20Dart%20plugin.)
 
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+
+## Project Demo
+
+<img src="readme-images/quiz.jpeg">
+<img src="readme-images/bil.jpg">
+<img src="readme-images/movie1.png">
+<img src="readme-images/movie2.png">
+<img src="readme-images/movie3.png">
+
+
+
