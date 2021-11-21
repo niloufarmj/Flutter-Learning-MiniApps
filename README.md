@@ -1,3 +1,13 @@
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/niloufarmj/flutter-prectice">
+    <img src="rreadme-images/logo.png" alt="Logo" width="80" height="80">
+  </a>
+
+  <h3 align="center">My Flutter Practice Projects</h3>
+</div>
+
 # firstflutterapp
 
 This file contains my first flutter applications which helped me learn flutter.
